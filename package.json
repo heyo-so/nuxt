@@ -1,6 +1,6 @@
 {
   "name": "@heyo.so/nuxt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Heyo chat widget integration for Nuxt",
   "license": "MIT",
   "type": "module",
@@ -21,12 +21,15 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "prepack": "nuxt-module-build build",
     "dev": "npm run dev:prepare && nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "release": "npm run dev:prepare && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch",
@@ -44,6 +47,11 @@
     "@types/node": "latest",
     "changelogen": "^0.6.2",
     "eslint": "^9.31.0",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "eslint-plugin-n": "latest",
+    "eslint-plugin-import": "latest",
+    "eslint-plugin-vue": "latest",
     "nuxt": "^4.0.1",
     "typescript": "~5.8.3",
     "vitest": "^3.2.4",

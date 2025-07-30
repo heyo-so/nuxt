@@ -1,4 +1,4 @@
-import { ref, onMounted, readonly, getCurrentInstance } from 'vue'
+import { ref, onMounted, readonly, getCurrentInstance, toRaw, isProxy } from 'vue'
 import type { HeyoApi, UseHeyoReturn } from '../types.js'
 
 type QueuedAction = {
@@ -59,7 +59,27 @@ export const useHeyo = (): UseHeyoReturn => {
         hide: () => queueAction('hide'),
         open: () => queueAction('open'),
         close: () => queueAction('close'),
-        identify: (meta: Record<string, unknown>) => queueAction('identify', [meta]),
+        // Ensure we only pass plain, structured-clone-compatible data to the widget –
+        // Vue reactive objects, functions, Symbols, etc. would otherwise trigger a
+        // `DataCloneError` inside the embed when it forwards the payload with
+        // postMessage(). We unwrap Vue proxies with `toRaw()` and then run a
+        // JSON round-trip as a cheap way to remove anything that cannot be
+        // cloned by the structured-clone algorithm (Dates, Sets, functions …).
+        // If the round-trip fails we fall back to an empty object so the call
+        // still goes through without breaking the widget.
+        identify: (meta: Record<string, unknown>) => {
+            let safeMeta: Record<string, unknown> = {};
+
+            try {
+                const unwrapped = isProxy(meta) ? toRaw(meta) : meta;
+                // Strip non-serialisable fields
+                safeMeta = JSON.parse(JSON.stringify(unwrapped));
+            } catch {
+                // Ignore – fall back to empty object so we don't crash the app
+            }
+
+            queueAction('identify', [safeMeta]);
+        },
     }
 
     return {

@@ -86,8 +86,7 @@ export default defineNuxtModule<HeyoModuleOptions>({
     // -----------------------------------------------------------------
     addTemplate({
       filename: "types/heyo.d.ts",
-      getContents: () =>
-        `declare interface HeyoApi {\n  show(): void;\n  hide(): void;\n  open(): void;\n  close(): void;\n  identify(meta: Record<string, any>): void;\n}\n\ndeclare module '#app' {\n  interface NuxtApp {\n    $heyo: HeyoApi;\n  }\n}\n\ndeclare module 'vue' {\n  interface ComponentCustomProperties {\n    $heyo: HeyoApi;\n  }\n}\nexport {};`,
+      src: resolver.resolve("runtime/templates/heyo.d.ts"),
     });
   },
 });

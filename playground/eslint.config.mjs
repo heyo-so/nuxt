@@ -1,30 +1,5 @@
+import withNuxt from './.nuxt/eslint.config.mjs';
 import globals from 'globals';
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
-import eslintPluginN from 'eslint-plugin-n';
-import eslintPluginImport from 'eslint-plugin-import';
-
-let withNuxt;
-try {
-    // Dynamically import the Nuxt-generated ESLint config if it exists.
-    // eslint-disable-next-line n/global-require, import/no-dynamic-require
-    withNuxt = (await import('./.nuxt/eslint.config.mjs')).default;
-} catch {
-    // Fallback: wrap the provided config and ensure the TypeScript ESLint plugin is registered.
-    withNuxt = (cfg) => ({
-        ...cfg,
-        plugins: {
-            ...(cfg.plugins || {}),
-            '@typescript-eslint': tseslint,
-            n: eslintPluginN,
-            import: eslintPluginImport,
-        },
-        languageOptions: {
-            ...(cfg.languageOptions || {}),
-            parser: tsParser,
-        },
-    });
-}
 
 export default withNuxt({
     rules: {

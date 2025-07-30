@@ -1,12 +1,15 @@
-import { ref, onMounted, readonly } from 'vue'
-import type { HeyoApi } from '../types.js'
+import { ref, onMounted, readonly, getCurrentInstance } from 'vue'
+import type { HeyoApi, UseHeyoReturn } from '../types.js'
 
 type QueuedAction = {
     action: keyof HeyoApi
     args: unknown[]
 }
 
-export const useHeyo = () => {
+/**
+ * Provides a typed interface to interact with the Heyo chat widget.
+ */
+export const useHeyo = (): UseHeyoReturn => {
     const isReady = ref(false)
     const isLoading = ref(true)
     const actionQueue = ref<QueuedAction[]>([])
@@ -41,9 +44,15 @@ export const useHeyo = () => {
         setTimeout(waitForReady, 100)
     }
 
-    onMounted(() => {
+    // Ensure we run in the right context – if called inside component setup, use onMounted
+    if (getCurrentInstance()) {
+        onMounted(() => {
+            waitForReady()
+        })
+    } else {
+        // Called outside of a component; run immediately
         waitForReady()
-    })
+    }
 
     const api: HeyoApi = {
         show: () => queueAction('show'),

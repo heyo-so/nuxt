@@ -1,6 +1,6 @@
 {
   "name": "@heyo.so/nuxt",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Heyo chat widget integration for Nuxt",
   "license": "MIT",
   "type": "module",

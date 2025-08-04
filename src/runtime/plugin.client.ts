@@ -5,6 +5,7 @@ import type { HeyoApi } from './types.js';
 declare global {
     interface Window {
         HEYO?: Partial<HeyoApi> & { _ready?: boolean };
+        __HEYO_INITIALIZED__?: boolean;
     }
 }
 
@@ -17,6 +18,11 @@ export default defineNuxtPlugin(() => {
     } | undefined;
 
     if (import.meta.client) {
+        if (window.__HEYO_INITIALIZED__) {
+            return;
+        }
+        window.__HEYO_INITIALIZED__ = true;
+
         // Check if we're in dev mode without projectId
 
         // Build the script URL using the same pattern as index.vue

@@ -18,7 +18,8 @@ export default defineNuxtPlugin(() => {
     } | undefined;
 
     if (import.meta.client) {
-        if (window.__HEYO_INITIALIZED__) {
+        // Prevent running inside iframes or multiple times
+        if (window.self !== window.top || window.__HEYO_INITIALIZED__) {
             return;
         }
         window.__HEYO_INITIALIZED__ = true;

@@ -1,6 +1,10 @@
 # Changelog
 
 
+## v1.0.10
+
+[compare changes](https://github.com/heyo-so/nuxt/compare/v1.0.8...v1.0.10)
+
 ## v1.0.8
 
 [compare changes](https://github.com/heyo-so/nuxt/compare/v1.0.7...v1.0.8)

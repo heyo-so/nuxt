@@ -1,6 +1,6 @@
 {
   "name": "@heyo.so/nuxt",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Heyo chat widget integration for Nuxt",
   "license": "MIT",
   "type": "module",
@@ -30,13 +30,14 @@
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "release": "npm run dev:prepare && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "build": "npm run prepack",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
   },
   "dependencies": {
-    "@heyo.so/js": "^1.0.3",
+    "@heyo.so/js": "^1.0.6",
     "@nuxt/kit": "^4.0.1"
   },
   "devDependencies": {

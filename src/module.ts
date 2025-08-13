@@ -43,6 +43,7 @@ export default defineNuxtModule<HeyoModuleOptions>({
     nuxt.options.runtimeConfig.public.heyo = {
       projectId: moduleOptions.projectId,
       hidden: moduleOptions.hidden,
+      scriptSrc: moduleOptions.scriptSrc,
     };
 
     // Add client-side plugin

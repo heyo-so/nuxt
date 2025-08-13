@@ -36,6 +36,7 @@
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
   },
   "dependencies": {
+    "@heyo.so/js": "^1.0.3",
     "@nuxt/kit": "^4.0.1"
   },
   "devDependencies": {
@@ -45,12 +46,12 @@
     "@nuxt/schema": "^4.0.1",
     "@nuxt/test-utils": "^3.19.2",
     "@types/node": "latest",
-    "changelogen": "^0.6.2",
-    "eslint": "^9.31.0",
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
-    "eslint-plugin-n": "latest",
+    "changelogen": "^0.6.2",
+    "eslint": "^9.31.0",
     "eslint-plugin-import": "latest",
+    "eslint-plugin-n": "latest",
     "eslint-plugin-vue": "latest",
     "nuxt": "^4.0.1",
     "typescript": "~5.8.3",
